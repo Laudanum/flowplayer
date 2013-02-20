@@ -885,7 +885,7 @@ var createVideoTag = function(video) {
 
 flowplayer.engine.html5 = function(player, root) {
 
-   var videoTag = $("video", root),
+   var videoTag = $("audio,video", root),
       support = flowplayer.support,
       track = $("track", videoTag),
       conf = player.conf,
@@ -895,8 +895,6 @@ flowplayer.engine.html5 = function(player, root) {
 
    return self = {
       pick: function(sources) {
-         console.log("support");
-         console.log(support);
          if (support.video) {
             for (var i = 0, source; i < sources.length; i++) {
                if (canPlay(sources[i].type)) return sources[i];
@@ -915,9 +913,7 @@ flowplayer.engine.html5 = function(player, root) {
       },
 
       load: function(video) {
-
          if (conf.splash && !api) {
-console.log("yes spash no api");
             videoTag = createVideoTag(video).prependTo(root);
 
             if (track.length) videoTag.append(track.attr("default", ""));
@@ -927,11 +923,7 @@ console.log("yes spash no api");
             api = videoTag[0];
 
          } else {
-console.log("Continuing");
-
             api = videoTag[0];
-console.log(api)
-console.log(videoTag)
             // change of clip
             if (player.video.src && video.src != player.video.src) {
                videoTag.attr("autoplay", "autoplay");
@@ -953,7 +945,8 @@ console.log(videoTag)
             }
 
          }
-
+console.log("about to listen")
+console.log(videoTag)
          listen(api, $("source", videoTag).add(videoTag), video);
 
          // iPad (+others?) demands load()
@@ -994,10 +987,8 @@ console.log(videoTag)
 
    function listen(api, sources, video) {
       // listen only once
-
       if (api.listeners && api.listeners.hasOwnProperty(root.data('fp-player_id'))) return;
       (api.listeners || (api.listeners = {}))[root.data('fp-player_id')] = true;
-
       sources.bind("error", function(e) {
          try {
             if (e.originalEvent && $(e.originalEvent.originalTarget).is('img')) return e.preventDefault();
@@ -1005,6 +996,7 @@ console.log(videoTag)
                player.trigger("error", { code: 4 });
             }
          } catch (er) {
+            console.log('bind error')
             // Most likely: https://bugzilla.mozilla.org/show_bug.cgi?id=208427
          }
       });
@@ -1024,16 +1016,16 @@ console.log(videoTag)
             }
 
             if (conf.debug && !/progress/.test(flow)) console.log(type, "->", flow, e);
-
             // no events if player not ready
-            if (!player.ready && !/ready|error/.test(flow) || !flow || !$("video", root).length) { return; }
-
+            if (!player.ready && !/ready|error/.test(flow) || !flow || !$("audio,video", root).length) { return; }
+console.log(100 + type)
             var event = $.Event(flow), arg;
 
             switch (flow) {
 
                case "ready":
-
+console.log('ready')
+console.log(video)
                   arg = $.extend(video, {
                      duration: api.duration,
                      width: api.videoWidth,
@@ -1072,9 +1064,9 @@ console.log(videoTag)
                   break;
 
                case "progress": case "seek":
-
+console.log("progress, seek")
                   var dur = player.video.duration
-
+console.log(dur)
                   if (api.currentTime > 0) {
                      arg = Math.max(api.currentTime, 0);
                      if (dur && arg && arg >= dur) event.type = "finish";
