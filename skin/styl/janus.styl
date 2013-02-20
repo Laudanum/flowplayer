@@ -23,6 +23,10 @@
 			height 100%
 			position relative
 			top 0
+			width 0
+			display none
+			&.active
+				display block
 
 		.fp-progress
 			bg rgba(68,255,255,0.4)
@@ -57,11 +61,8 @@
 			font-size 10px
 			opacity 1
 			width 50px
-
-			&:before
-				content "Pause"
-				text-transform uppercase
-				color #138ed0
+			text-transform uppercase
+			color #138ed0
 
 		.fp-volume, .fp-embed
 			display none
@@ -71,10 +72,3 @@
 
 		.fp-engine
 			bg rgb(238,238,238)
-
-	.is-paused&
-		.fp-play
-			&:before
-				content "Play"
-
-
