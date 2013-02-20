@@ -1,1 +1,64 @@
 @import "minimalist"
+
+.{root}
+
+	&.fixed-controls, &.is-mouseout, &.is-mouseover 
+		.fp-controls
+			height 30px
+			bg #F
+
+		.fp-timeline
+			bg #F
+			height 100%
+			margin-left 67px !important
+			margin 0 0 0 67px
+			top 0 !important
+
+		.fp-highlight
+			bg #008ed0
+			bg rgba(0, 142, 208, 0.5)
+			border-left 1px solid #138ed0
+			border-right 1px solid #138ed0
+			z-index 10
+			height 100%
+			position relative
+
+		.fp-progress
+			bg rgba(68,255,255,0.4)
+			z-index 20
+
+		.fp-time 
+			text-shadow none
+			font-size 10px
+			color #0
+			font-weight normal
+
+			em
+				bottom -11px
+
+			.fp-elapsed
+				right 5px
+				left auto
+				text-align right
+
+			.fp-remaining, .fp-duration
+				display none	
+
+		.fp-play
+			bottom -3px
+			left 5px
+
+			&:before
+				content "Pause"
+				text-transform uppercase
+				color #138ed0
+
+		.fp-volume, .fp-embed
+			display none
+
+	.is-paused&
+		.fp-play
+			&:before
+				content "Play"
+
+
