@@ -8,10 +8,10 @@
 			bg #F
 
 		.fp-timeline
-			bg #F
+			bg rgb(238,238,238)
 			height 100%
 			margin-left 67px !important
-			margin 0 0 0 67px
+			margin 0 67px
 			top 0 !important
 
 		.fp-highlight
@@ -22,10 +22,15 @@
 			z-index 10
 			height 100%
 			position relative
+			top 0
 
 		.fp-progress
 			bg rgba(68,255,255,0.4)
+			border-right rgb(68,255,255)
 			z-index 20
+
+		.fp-buffer
+			bg rgba(153,153,153,0.3)
 
 		.fp-time 
 			text-shadow none
@@ -40,6 +45,7 @@
 				right 5px
 				left auto
 				text-align right
+				opacity 1
 
 			.fp-remaining, .fp-duration
 				display none	
@@ -47,6 +53,7 @@
 		.fp-play
 			bottom -3px
 			left 5px
+			display block
 
 			&:before
 				content "Pause"
@@ -55,6 +62,9 @@
 
 		.fp-volume, .fp-embed
 			display none
+
+		.fp-fullscreen
+			text-indent -999px
 
 	.is-paused&
 		.fp-play
