@@ -139,10 +139,9 @@ $.fn.flowplayer = function(opts, callback) {
    if ($.isFunction(opts)) { callback = opts; opts = {} }
 
    return !opts && this.data("flowplayer") || this.each(function() {
-// here we need to detect for audio
-      console.log(200, $(this));
+      // here we need to detect for audio
       // does this element have a video or audio tag?
-      var tagname = $(this).find("video, audio").prop("tagName");
+      var tagname = $(this).find("audio,video").prop("tagName");
       tagname = tagname ? tagname.toLowerCase() : 'video';
       // private variables
       var root = $(this).addClass("is-loading"),
@@ -204,9 +203,7 @@ $.fn.flowplayer = function(opts, callback) {
          },
 
          pause: function(fn) {
-            console.log("chekcing whether to engine.pause")
             if (api.ready && !api.seeking && !api.disabled && !api.loading) {
-               console.log("please engine pause")
                engine.pause();
                api.one("pause", fn);
             }
@@ -214,15 +211,12 @@ $.fn.flowplayer = function(opts, callback) {
          },
 
          resume: function() {
-            console.log("resume function")
 
             if (api.ready && api.paused && !api.disabled) {
                engine.resume();
-               console.log("called resume")
 
                // Firefox (+others?) does not fire "resume" after finish
                if (api.finished) {
-            console.log("resume trigger")
                   api.trigger("resume");
                   api.finished = false;
                }
@@ -376,14 +370,11 @@ $.fn.flowplayer = function(opts, callback) {
          engine = flowplayer.engine[conf.engine];
          if (engine) engine = engine(api, root);
 
-         console.log(urlResolver.initialSources);
-
          if (engine.pick(urlResolver.initialSources)) {
             api.engine = conf.engine;
 
          // 2. failed -> try another
          } else {
-            alert("failied")
             $.each(flowplayer.engine, function(name, impl) {
                if (name != conf.engine) {
                   engine = this(api, root);
@@ -394,7 +385,6 @@ $.fn.flowplayer = function(opts, callback) {
          }
 
          // no engine
-         if (!api.engine) alert("no api engine")
          if (!api.engine) return api.trigger("error", { code: flowplayer.support.flash ? 5 : 10 });
 
          // start
@@ -492,7 +482,6 @@ $.fn.flowplayer = function(opts, callback) {
 
          // sanity check
          if (!api.load.ed) { 
-            console.log("api not loaded--pausing")
             api.pause();
          }
 
@@ -691,8 +680,6 @@ flowplayer.engine.flash = function(player, root) {
             // listen
             $[callbackId] = function(type, arg) {
 
-               if (conf.debug && type != "status") console.log("--", type, arg);
-
                var event = $.Event(type);
 
                switch (type) {
@@ -854,23 +841,19 @@ function getType(type, tag) {
 function canPlay(type) {
    // things to try
    tag = 'video';
-   console.log("Attempting " + tag + " for " + type);
 
    var t = type;
    if (!/^(video|application)/.test(t))
       t = getType(t, tag);
    result = !!VIDEO.canPlayType(t).replace("no", '');
-   console.log("..." + result);
    if ( result ) return result;
 
    tag = 'audio';
-   console.log("Attempting " + tag + " for " + type);
    // doesn't start with video/application
    var t = type;
    if (!/^(audio|application)/.test(t))
       t = getType(t, tag);
    result = !!AUDIO.canPlayType(t).replace("no", '');
-   console.log("..." + result);
    if ( result ) return result;
 
    return false;
@@ -953,8 +936,6 @@ flowplayer.engine.html5 = function(player, root) {
             }
 
          }
-console.log("about to listen")
-console.log(videoTag)
          listen(api, $("source", videoTag).add(videoTag), video);
 
          // iPad (+others?) demands load()
@@ -963,12 +944,10 @@ console.log(videoTag)
       },
 
       pause: function() {
-         console.log("engine pause")
          api.pause();
       },
 
       resume: function() {
-         console.log("engine resume")
          api.play();
       },
 
@@ -1006,7 +985,6 @@ console.log(videoTag)
                player.trigger("error", { code: 4 });
             }
          } catch (er) {
-            console.log('bind error')
             // Most likely: https://bugzilla.mozilla.org/show_bug.cgi?id=208427
          }
       });
@@ -1028,14 +1006,11 @@ console.log(videoTag)
             if (conf.debug && !/progress/.test(flow)) console.log(type, "->", flow, e);
             // no events if player not ready
             if (!player.ready && !/ready|error/.test(flow) || !flow || !$("audio,video", root).length) { return; }
-console.log(100 + type)
             var event = $.Event(flow), arg;
 
             switch (flow) {
 
                case "ready":
-console.log('ready')
-console.log(video)
                   arg = $.extend(video, {
                      duration: api.duration,
                      width: api.videoWidth,
@@ -1074,9 +1049,7 @@ console.log(video)
                   break;
 
                case "progress": case "seek":
-console.log("progress, seek")
                   var dur = player.video.duration
-console.log(dur)
                   if (api.currentTime > 0) {
                      arg = Math.max(api.currentTime, 0);
                      if (dur && arg && arg >= dur) event.type = "finish";
@@ -1116,8 +1089,6 @@ console.log(dur)
 var TYPE_RE = /.(\w{3,4})$/i;
 
 function parseSource(el) {
-   console.log(el);
-
    var src = el.attr("src"),
       type = el.attr("type") || "",
       suffix = src.split(TYPE_RE)[1];
@@ -1135,11 +1106,9 @@ function URLResolver(videoTag) {
 
    // initial sources
    $("source", videoTag).each(function() {
-      console.log(100);
       sources.push(parseSource($(this)));
    });
 
-   console.log(101, videoTag);
    if (!sources.length) sources.push(parseSource(videoTag));
 
    self.initialSources = sources;
@@ -1500,7 +1469,6 @@ flowplayer(function(api, root) {
       root.removeClass("is-loading").addClass("is-error");
 
       if (error) {
-         console.log(error)
          error.message = conf.errors[error.code];
          api.error = true;
 
@@ -1554,7 +1522,6 @@ flowplayer(function(api, root) {
          e.preventDefault();
          return api.toggle();
       }
-      console.log(api.video.type)
       if ( api.video.type == 'mp3' ) {
          // should pause / play but doesn't (play and pause together)
       }
@@ -1584,8 +1551,6 @@ flowplayer(function(api, root) {
    }
 
    $(".fp-toggle, .fp-play", root).click(function(e) {
-      console.log(e);
-      console.log($(this).attr("class"));
       api.toggle();
    });
 
@@ -1822,8 +1787,6 @@ flowplayer(function(player, root) {
 
 
    player.play = function(i) {
-      console.log(i);
-      console.log(player);
       if (i === undefined) player.resume();
       else if (typeof i != 'number') player.load.apply(null, arguments);
       else els().eq(i).click();
