@@ -204,7 +204,9 @@ $.fn.flowplayer = function(opts, callback) {
          },
 
          pause: function(fn) {
+            console.log("chekcing whether to engine.pause")
             if (api.ready && !api.seeking && !api.disabled && !api.loading) {
+               console.log("please engine pause")
                engine.pause();
                api.one("pause", fn);
             }
@@ -212,12 +214,15 @@ $.fn.flowplayer = function(opts, callback) {
          },
 
          resume: function() {
+            console.log("resume function")
 
             if (api.ready && api.paused && !api.disabled) {
                engine.resume();
+               console.log("called resume")
 
                // Firefox (+others?) does not fire "resume" after finish
                if (api.finished) {
+            console.log("resume trigger")
                   api.trigger("resume");
                   api.finished = false;
                }
@@ -486,7 +491,10 @@ $.fn.flowplayer = function(opts, callback) {
          root.toggleClass("is-paused", api.paused).toggleClass("is-playing", api.playing);
 
          // sanity check
-         if (!api.load.ed) api.pause();
+         if (!api.load.ed) { 
+            console.log("api not loaded--pausing")
+            api.pause();
+         }
 
       }).bind("finish", function(e) {
          api.finished = true;
@@ -955,10 +963,12 @@ console.log(videoTag)
       },
 
       pause: function() {
+         console.log("engine pause")
          api.pause();
       },
 
       resume: function() {
+         console.log("engine resume")
          api.play();
       },
 
@@ -1544,6 +1554,11 @@ flowplayer(function(api, root) {
          e.preventDefault();
          return api.toggle();
       }
+      console.log(api.video.type)
+      if ( api.video.type == 'mp3' ) {
+         // should pause / play but doesn't (play and pause together)
+      }
+      //alert("is not somehting")
    });
 
    // poster -> background image
@@ -1568,7 +1583,11 @@ flowplayer(function(api, root) {
       root.css("backgroundColor", "#555");
    }
 
-   $(".fp-toggle, .fp-play", root).click(api.toggle);
+   $(".fp-toggle, .fp-play", root).click(function(e) {
+      console.log(e);
+      console.log($(this).attr("class"));
+      api.toggle();
+   });
 
    /* controlbar elements */
    $.each(['mute', 'fullscreen', 'unload'], function(i, key) {
@@ -1789,7 +1808,6 @@ flowplayer(function(player, root) {
 
 
 flowplayer(function(player, root) {
-
    var conf = $.extend({ active: 'is-active', advance: true, query: ".fp-playlist a" }, player.conf),
       klass = conf.active;
 
@@ -1804,15 +1822,15 @@ flowplayer(function(player, root) {
 
 
    player.play = function(i) {
+      console.log(i);
+      console.log(player);
       if (i === undefined) player.resume();
       else if (typeof i != 'number') player.load.apply(null, arguments);
       else els().eq(i).click();
       return player;
    };
 
-
    if (els().length) {
-
       /* click -> play */
       root.on("click", conf.query, function(e) {
          var el = $(e.target).closest(conf.query);
@@ -1898,7 +1916,6 @@ flowplayer(function(player, root) {
 var CUE_RE = / ?cue\d+ ?/;
 
 flowplayer(function(player, root) {
-
    var lastTime = 0;
 
    player.cuepoints = player.conf.cuepoints || [];
