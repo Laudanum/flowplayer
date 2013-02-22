@@ -909,12 +909,13 @@
   bottom: -3px;
   left: 5px;
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   opacity: 1;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   width: 50px;
   text-transform: uppercase;
-  color: #138ed0;
+  color: #008ed0;
+  font-weight: bold;
 }
 .flowplayer.fixed-controls .fp-volume,
 .flowplayer.is-mouseout .fp-volume,
