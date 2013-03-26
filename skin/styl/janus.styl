@@ -1,6 +1,7 @@
 @import "minimalist"
 
 .{root}
+	active-color = #008ED0
 
 	&.fixed-controls, &.is-mouseout, &.is-mouseover 
 		.fp-controls
@@ -13,6 +14,7 @@
 			margin-left 67px !important
 			margin 0 67px !important
 			top 0 !important
+			overflow visible
 
 		.fp-highlight
 			bg #008ed0
@@ -30,7 +32,7 @@
 
 		.fp-progress
 			bg rgba(68,255,255,0.4)
-			border-right rgb(68,255,255)
+			border-right 3px solid #138ed0
 			z-index 20
 
 		.fp-buffer
@@ -62,7 +64,7 @@
 			opacity 1
 			width 50px
 			text-transform uppercase
-			color #008ED0
+			color active-color
 			font-weight bold
 
 		.fp-volume, .fp-embed
@@ -73,3 +75,42 @@
 
 		.fp-engine
 			bg rgb(238,238,238)
+		
+		// our in point out point markers
+		.fp-cuepoint
+			display	block
+			position absolute
+			top 0
+			font-size 11px
+			opacity 1
+			width 50px
+			text-transform uppercase
+			color active-color
+			font-weight bold
+			padding 2px
+			background-color rgba(255,255,255,0.7)
+			width 28px
+			height 28px
+			margin-left -14px
+			text-align center
+			-webkit-box-sizing border-box
+			-moz-box-sizing border-box
+			box-sizing border-box
+			margin-top 30px
+
+			i
+				width 0 
+				height 0
+				display block
+				border 5px solid transparent
+				margin 0 auto 0 auto
+		.fp-cuepoint0
+			i
+				border-bottom-color active-color
+				border-top none
+		.fp-cuepoint1
+			left 100%
+			i
+				border-top-color active-color
+				border-bottom none
+		

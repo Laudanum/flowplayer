@@ -841,6 +841,7 @@
   margin-left: 67px !important;
   margin: 0 67px !important;
   top: 0 !important;
+  overflow: visible;
 }
 .flowplayer.fixed-controls .fp-highlight,
 .flowplayer.is-mouseout .fp-highlight,
@@ -865,7 +866,7 @@
 .flowplayer.is-mouseout .fp-progress,
 .flowplayer.is-mouseover .fp-progress {
   background-color: rgba(68,255,255,0.4);
-  border-right: #4ff;
+  border-right: 3px solid #138ed0;
   z-index: 20;
 }
 .flowplayer.fixed-controls .fp-buffer,
@@ -935,43 +936,53 @@
 .flowplayer.is-mouseover .fp-engine {
   background-color: #eee;
 }
-.flowplayer.fixed-controls .cuepoint,
-.flowplayer.is-mouseout .cuepoint,
-.flowplayer.is-mouseover .cuepoint {
-  postion: absolute;
+.flowplayer.fixed-controls .fp-cuepoint,
+.flowplayer.is-mouseout .fp-cuepoint,
+.flowplayer.is-mouseover .fp-cuepoint {
+  display: block;
+  position: absolute;
+  top: 0;
   font-size: 11px;
   opacity: 1;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
   width: 50px;
   text-transform: uppercase;
   color: #008ed0;
-  border: 1px solid #808080;
   font-weight: bold;
   padding: 2px;
-  background-color: #fff;
-  width: 32px;
-  height: 32px;
+  background-color: rgba(255,255,255,0.7);
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
   text-align: center;
-  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 30px;
 }
-.flowplayer.fixed-controls .cuepoint i,
-.flowplayer.is-mouseout .cuepoint i,
-.flowplayer.is-mouseover .cuepoint i {
+.flowplayer.fixed-controls .fp-cuepoint i,
+.flowplayer.is-mouseout .fp-cuepoint i,
+.flowplayer.is-mouseover .fp-cuepoint i {
   width: 0;
   height: 0;
   display: block;
   border: 5px solid transparent;
   margin: 0 auto 0 auto;
 }
-.flowplayer.fixed-controls .in-point i,
-.flowplayer.is-mouseout .in-point i,
-.flowplayer.is-mouseover .in-point i {
+.flowplayer.fixed-controls .fp-cuepoint0 i,
+.flowplayer.is-mouseout .fp-cuepoint0 i,
+.flowplayer.is-mouseover .fp-cuepoint0 i {
   border-bottom-color: #008ed0;
   border-top: none;
 }
-.flowplayer.fixed-controls .out-point i,
-.flowplayer.is-mouseout .out-point i,
-.flowplayer.is-mouseover .out-point i {
+.flowplayer.fixed-controls .fp-cuepoint1,
+.flowplayer.is-mouseout .fp-cuepoint1,
+.flowplayer.is-mouseover .fp-cuepoint1 {
+  left: 100%;
+}
+.flowplayer.fixed-controls .fp-cuepoint1 i,
+.flowplayer.is-mouseout .fp-cuepoint1 i,
+.flowplayer.is-mouseover .fp-cuepoint1 i {
   border-top-color: #008ed0;
   border-bottom: none;
 }
