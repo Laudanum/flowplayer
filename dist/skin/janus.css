@@ -935,3 +935,43 @@
 .flowplayer.is-mouseover .fp-engine {
   background-color: #eee;
 }
+.flowplayer.fixed-controls .cuepoint,
+.flowplayer.is-mouseout .cuepoint,
+.flowplayer.is-mouseover .cuepoint {
+  postion: absolute;
+  font-size: 11px;
+  opacity: 1;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  width: 50px;
+  text-transform: uppercase;
+  color: #008ed0;
+  border: 1px solid #808080;
+  font-weight: bold;
+  padding: 2px;
+  background-color: #fff;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  float: left;
+}
+.flowplayer.fixed-controls .cuepoint i,
+.flowplayer.is-mouseout .cuepoint i,
+.flowplayer.is-mouseover .cuepoint i {
+  width: 0;
+  height: 0;
+  display: block;
+  border: 5px solid transparent;
+  margin: 0 auto 0 auto;
+}
+.flowplayer.fixed-controls .in-point i,
+.flowplayer.is-mouseout .in-point i,
+.flowplayer.is-mouseover .in-point i {
+  border-bottom-color: #008ed0;
+  border-top: none;
+}
+.flowplayer.fixed-controls .out-point i,
+.flowplayer.is-mouseout .out-point i,
+.flowplayer.is-mouseover .out-point i {
+  border-top-color: #008ed0;
+  border-bottom: none;
+}
