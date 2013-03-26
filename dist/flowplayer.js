@@ -1,6 +1,6 @@
 /*!
 
-   Flowplayer v5.3.2 (2013-02-21) | flowplayer.org/license
+   Flowplayer v5.3.2 (2013-02-22) | flowplayer.org/license
 
 */
 !function($) { 
@@ -2243,3 +2243,4 @@ $.fn.fptip = function(trigger, active) {
 };
 
 }(jQuery);
+flowplayer(function(a,b){function j(a){var b=c("<a/>")[0];return b.href=a,b.hostname}var c=jQuery,d=a.conf,e=d.swf.indexOf("flowplayer.org")&&d.e&&d.origin,f=e?j(e):location.hostname,g=d.key;location.protocol=="file:"&&(f="localhost"),a.load.ed=1,d.hostname=f,d.origin=e||location.href,e&&b.addClass("is-embedded"),typeof g=="string"&&(g=g.split(/,\s*/));if(g&&typeof key_check=="function"&&key_check(g,f))d.logo&&b.append(c("<a>",{"class":"fp-logo",href:e,target:"_top"}).append(c("<img/>",{src:d.logo})));else{var h=c("<a/>",{href:"http://flowplayer.org",target:"_top"}).appendTo(b),i=c(".fp-controls",b);a.bind("pause resume finish unload",function(b){/pause|resume/.test(b.type)&&a.engine!="flash"?(h.show().css({position:"absolute",left:16,bottom:36,zIndex:99999,width:100,height:20,backgroundImage:"url("+[".png","logo","/",".org",".flowplayer","stream","//"].reverse().join("")+")"}),a.load.ed=h.is(":visible")):h.hide()})}});
