@@ -986,3 +986,7 @@
   border-top-color: #008ed0;
   border-bottom: none;
 }
+.mediaelement-audio .fp-ratio,
+.file-audio .fp-ratio {
+  padding-top: 10%;
+}
